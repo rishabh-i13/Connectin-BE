@@ -90,11 +90,12 @@ export const login = async (req, res) => {
       });      
   
       res.cookie("jwt-connectin", token, {
-        httpOnly: true,
-        maxAge: 3 * 24 * 60 * 60 * 1000,
-        sameSite: "strict",
-        secure: process.env.NODE_ENV === "production",
-      });
+  httpOnly: true,
+  maxAge: 3 * 24 * 60 * 60 * 1000, // 3 days
+  sameSite: "None",               // 🔥 Cross-site cookie fix
+  secure: true                    // 🔐 Required for SameSite=None
+});
+
   
       res.status(200).json({ message: "Login successful" });
   
