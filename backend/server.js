@@ -17,7 +17,7 @@ const PORT=process.env.PORT || 5000;
 const app=express();
 
 app.use(cors({
-    origin: ["http://localhost:5173", "http://localhost:5174"],
+    origin: ["http://localhost:5173", "http://localhost:5174","https://connectin-fe.onrender.com"],
     credentials: true,
 }));
 
