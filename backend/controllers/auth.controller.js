@@ -38,13 +38,20 @@ export const signup= async (req,res)=>{
         await user.save();
 
         const token=jwt.sign({userID:user._id},process.env.JWT_SECRET,{expiresIn:"3d"});
-        res.cookie("jwt-connectin",token,
-            {
-                httpOnly:true, //prevents client side js from accessing the cookie k/a XSS attack
-                maxAge:3*24*60*60*1000,
-                sameSite:"None", //prevents CSRF attack
-                secure:process.env.NODE_ENV==="production"
-            });
+        res.cookie("jwt-connectin", token, {
+          httpOnly: true,
+          maxAge: 3 * 24 * 60 * 60 * 1000, // 3 days
+          sameSite: "None",               // cross-site allowed
+          secure: true                    // required for SameSite=None
+        });
+
+        // res.cookie("jwt-connectin",token,
+        //     {
+        //         httpOnly:true, //prevents client side js from accessing the cookie k/a XSS attack
+        //         maxAge:3*24*60*60*1000,
+        //         sameSite:"None", //prevents CSRF attack
+        //         secure:process.env.NODE_ENV==="production"
+        //     });
 
         res.status(201).json({message:"User created successfully"});  
 
