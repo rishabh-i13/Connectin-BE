@@ -107,10 +107,15 @@ export const login = async (req, res) => {
   
 
 //Logout controller
-export const logout=(req,res)=>{
-    res.clearCookie("jwt-connectin");
-    res.status(200).json({message:"Logout successful"});
-}
+export const logout = (req, res) => {
+  res.clearCookie("jwt-connectin", {
+    httpOnly: true,
+    sameSite: "None", // Must match how it was set
+    secure: true      // Must match how it was set
+  });
+  res.status(200).json({ message: "Logout successful" });
+};
+
 
 export const getCurrentUser=(req,res)=>{
     try {
