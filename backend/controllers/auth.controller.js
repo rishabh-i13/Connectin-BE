@@ -42,7 +42,7 @@ export const signup= async (req,res)=>{
             {
                 httpOnly:true, //prevents client side js from accessing the cookie k/a XSS attack
                 maxAge:3*24*60*60*1000,
-                sameSite:"strict", //prevents CSRF attack
+                sameSite:"None", //prevents CSRF attack
                 secure:process.env.NODE_ENV==="production"
             });
 
@@ -50,7 +50,7 @@ export const signup= async (req,res)=>{
 
         //send welcome mail
 
-        const profileURL=process.env.CLIENT_URL+"/profile/" +user.username;
+        // const profileURL=process.env.CLIENT_URL+"/profile/" +user.username;
 
         // try {
         //     await sendWelcomeMail(user.email,user.name,profileURL);
@@ -90,11 +90,11 @@ export const login = async (req, res) => {
       });      
   
       res.cookie("jwt-connectin", token, {
-  httpOnly: true,
-  maxAge: 3 * 24 * 60 * 60 * 1000, // 3 days
-  sameSite: "None",               // 🔥 Cross-site cookie fix
-  secure: true                    // 🔐 Required for SameSite=None
-});
+        httpOnly: true,
+        maxAge: 3 * 24 * 60 * 60 * 1000, // 3 days
+        sameSite: "None",               // 🔥 Cross-site cookie fix
+        secure: true                    // 🔐 Required for SameSite=None
+      });
 
   
       res.status(200).json({ message: "Login successful" });
